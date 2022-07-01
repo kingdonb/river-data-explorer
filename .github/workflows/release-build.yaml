@@ -30,7 +30,7 @@ jobs:
         run: |
           git clone https://github.com/fluxcd/flux2 -b oci
           pushd flux2
-          make
+          make build
           mkdir -p $GITHUB_WORKSPACE/bin
           cp bin/flux $GITHUB_WORKSPACE/bin
           popd
