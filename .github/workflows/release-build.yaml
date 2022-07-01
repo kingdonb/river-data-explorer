@@ -14,7 +14,16 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: '^1.17.0'
+
+      - name: Cache Flux OCI (prerelease)
+        id: cache-flux
+        uses: actions/cache@v3
+        with:
+          path: $GITHUB_WORKSPACE/bin
+          key: ${{ runner.os }}-flux
+
       - name: Build Flux (pre-release)
+        if: steps.cache-flux.outputs.cache-hit != 'true'
         id: build-flux-oci
         run: |
           git clone https://github.com/fluxcd/flux2 -b oci
