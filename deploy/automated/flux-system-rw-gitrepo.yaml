@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: flux-system-rw
+  name: river-data-rw
   namespace: river-data
 spec:
   gitImplementation: go-git
@@ -10,6 +10,6 @@ spec:
   ref:
     branch: main
   secretRef:
-    name: flux-system-rw
+    name: river-data-rw
   timeout: 20s
-  url: ssh://git@github.com/kingdonb/tailscale-k8s
+  url: ssh://git@github.com/kingdonb/river-data-explorer
