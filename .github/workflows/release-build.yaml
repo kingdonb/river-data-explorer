@@ -40,7 +40,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          GIT_TAG=${GITHUB_REF/refs\/tags\//}
+          GIT_TAG=${GITHUB_REF/refs\/tags\/release\//}
           echo ::set-output name=GIT_TAG::${GIT_TAG}
 
       - name: Login to GHCR
