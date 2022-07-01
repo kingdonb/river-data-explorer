@@ -8,18 +8,18 @@ spec:
   git:
     checkout:
       ref:
-        branch: main
+        branch: deploy
     commit:
       author:
         email: yebyen+fluxcd@gmail.com
         name: fluxcdbot
       messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
     push:
-      branch: main
+      branch: deploy
   interval: 1m0s
   sourceRef:
     kind: GitRepository
     name: river-data-rw
   update:
-    path: ./deploy/automated
+    path: ./deploy/
     strategy: Setters
