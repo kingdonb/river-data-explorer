@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
   name: river-data-rw
-  namespace: river-dev
+  namespace: river-auto
 spec:
   gitImplementation: go-git
   interval: 30m0s
@@ -11,4 +11,4 @@ spec:
   secretRef:
     name: river-data-rw
   timeout: 20s
-  url: ssh://git@github.com/kingdonb/river-data-explorer
+  url: ssh://git@github.com/juozasg/river-data-explorer

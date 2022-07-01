@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: river-data.hephy.pro
+  - host: river-data-stg.tailscale-k8s.hephy.pro
     http:
       paths:
       - backend:
@@ -19,5 +19,5 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - river-data.hephy.pro
-    secretName: river-data-tls
+    - river-data-stg.tailscale-k8s.hephy.pro
+    secretName: river-data-stg-tls
