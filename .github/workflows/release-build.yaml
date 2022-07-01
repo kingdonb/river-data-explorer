@@ -11,6 +11,8 @@ jobs:
       IMAGE: ghcr.io/kingdonb/river-data-explorer-config
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - uses: actions/setup-go@v3
         with:
           go-version: '^1.17.0'
@@ -27,10 +29,12 @@ jobs:
         id: build-flux-oci
         run: |
           git clone https://github.com/fluxcd/flux2 -b oci
-          cd flux2
+          pushd flux2
           make
           mkdir -p $GITHUB_WORKSPACE/bin
           cp bin/flux $GITHUB_WORKSPACE/bin
+          popd
+
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
 
       - name: Prepare
@@ -45,8 +49,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/checkout@v3
 
       - name: Flux push OCI Repository
         id: oci_push
