@@ -1,4 +1,3 @@
----
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
@@ -7,5 +6,5 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    tag: 0.5.3-edge.6 # {"$imagepolicy": "river-auto:edge-config"}
+    tag: ghcr.io/kingdonb/river-data-explorer-config:0.5.3 # {"$imagepolicy": "river-auto:edge-config"}
   url: ghcr.io/kingdonb/river-data-explorer-config
