@@ -26,7 +26,7 @@ jobs:
           pushd flux2
           FLUX_OCI_SHA=$(git rev-parse --short HEAD)
           popd
-          mkdir -p ${{ steps.prep.outputs.FLUX_PATH }}
+          mkdir -p "${FLUX_PATH}"
       
           echo ::set-output name=GIT_TAG::${GIT_TAG}
           echo ::set-output name=FLUX_PATH::${FLUX_PATH}
