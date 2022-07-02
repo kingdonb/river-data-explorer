@@ -26,6 +26,7 @@ jobs:
           pushd flux2
           FLUX_OCI_SHA=$(git rev-parse --short HEAD)
           popd
+          mkdir -p ${{ steps.prep.outputs.FLUX_PATH }}
       
           echo ::set-output name=GIT_TAG::${GIT_TAG}
           echo ::set-output name=FLUX_PATH::${FLUX_PATH}
@@ -63,7 +64,6 @@ jobs:
         run: |
           pushd flux2
           make build
-          mkdir -p ${{ steps.prep.outputs.FLUX_PATH }}
           cp bin/flux ${{ steps.prep.outputs.FLUX_PATH }}
           popd
           echo "${{ steps.prep.outputs.FLUX_PATH }}" >> $GITHUB_PATH
