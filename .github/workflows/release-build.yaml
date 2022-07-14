@@ -19,12 +19,12 @@ jobs:
       #   with:
       #     go-version: '^1.17.0'
 
-      # - name: Prepare
-      #   id: prep
-      #   run: |
+      - name: Prepare
+        id: prep
+        run: |
       #     GIT_TAG=${GITHUB_REF/refs\/tags\/release\//}
-      #     FLUX_PATH=${GITHUB_WORKSPACE}/bin
-      #     FLUX_OCI_SHA=2b1cc6205f648a802509ec2b4f49dee776298ba4
+          FLUX_PATH=${GITHUB_WORKSPACE}/bin
+          FLUX_OCI_SHA=2b1cc62
       #     mkdir flux2 && pushd flux2
       #     git init
       #     git remote add origin https://github.com/fluxcd/flux2
@@ -35,11 +35,11 @@ jobs:
       #     FLUX_OCI_SHA=$(git rev-parse --short HEAD)
       #     popd
       #     mkdir -p "${FLUX_PATH}"
-      #     echo "${FLUX_PATH}" >> $GITHUB_PATH
+          echo "${FLUX_PATH}" >> $GITHUB_PATH
       #
       #     echo ::set-output name=GIT_TAG::${GIT_TAG}
-      #     echo ::set-output name=FLUX_PATH::${FLUX_PATH}
-      #     echo ::set-output name=FLUX_OCI_SHA::${FLUX_OCI_SHA}
+          echo ::set-output name=FLUX_PATH::${FLUX_PATH}
+          echo ::set-output name=FLUX_OCI_SHA::${FLUX_OCI_SHA}
 
       # - name: Cache Flux OCI (prerelease)
       #   id: cache-flux
