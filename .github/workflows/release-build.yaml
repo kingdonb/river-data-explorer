@@ -22,40 +22,46 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-      #     GIT_TAG=${GITHUB_REF/refs\/tags\/release\//}
+          GIT_TAG=${GITHUB_REF/refs\/tags\/release\//}
           FLUX_PATH=${GITHUB_WORKSPACE}/bin
-          FLUX_OCI_SHA=2b1cc62
-      #     mkdir flux2 && pushd flux2
-      #     git init
-      #     git remote add origin https://github.com/fluxcd/flux2
-      #     # git clone --depth 1 https://github.com/fluxcd/flux2 -b oci
-      #     git fetch --depth 1 origin $FLUX_OCI_SHA
-      #     git checkout FETCH_HEAD
-      #     # pushd flux2
-      #     FLUX_OCI_SHA=$(git rev-parse --short HEAD)
-      #     popd
-      #     mkdir -p "${FLUX_PATH}"
+          # FLUX_OCI_SHA=2b1cc62
+          # mkdir flux2 && pushd flux2
+          # git init
+          # git remote add origin https://github.com/fluxcd/flux2
+          git clone --depth 1 https://github.com/fluxcd/flux2 -b oci
+          # git fetch --depth 1 origin $FLUX_OCI_SHA
+          # git checkout FETCH_HEAD
+          pushd flux2
+          FLUX_OCI_SHA=$(git rev-parse --short HEAD)
+          popd
+          mkdir -p "${FLUX_PATH}"
           echo "${FLUX_PATH}" >> $GITHUB_PATH
-      #
-      #     echo ::set-output name=GIT_TAG::${GIT_TAG}
+          
+          echo ::set-output name=GIT_TAG::${GIT_TAG}
           echo ::set-output name=FLUX_PATH::${FLUX_PATH}
           echo ::set-output name=FLUX_OCI_SHA::${FLUX_OCI_SHA}
 
-      # - name: Cache Flux OCI (prerelease)
-      #   id: cache-flux
-      #   uses: actions/cache@v3
-      #   env:
-      #     cache-name: flux
-      #   with:
-      #     path: ${{ steps.prep.outputs.FLUX_PATH }}
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ steps.prep.outputs.FLUX_OCI_SHA }}
-
-      - name: Download latest OCI Flux
-        if: steps.cache-flux.outputs.cache-hit != 'true'
-        uses: actions/download-artifact@v2
+      - name: Cache Flux OCI (prerelease)
+        id: cache-flux
+        uses: actions/cache@v3
+        env:
+          cache-name: flux
         with:
-          name: flux-oci-bin-prerelease
-          path: ${{ steps.prep.outputs.FLUX_PATH }}/flux
+          path: ${{ steps.prep.outputs.FLUX_PATH }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ steps.prep.outputs.FLUX_OCI_SHA }}
+
+      # - uses: actions/upload-artifact@v2
+      #   if: steps.cache-flux.outputs.cache-hit != 'true'
+      #   with:
+      #     name: flux-oci-bin-prerelease
+      #     path: ${{ steps.prep.outputs.FLUX_PATH }}/flux
+
+      # - name: Download latest OCI Flux
+      #   if: steps.cache-flux.outputs.cache-hit != 'true'
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: flux-oci-bin-prerelease
+      #     path: ${{ steps.prep.outputs.FLUX_PATH }}/flux
 
       - name: Login to GHCR
         uses: docker/login-action@v1
