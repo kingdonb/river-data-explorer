@@ -71,6 +71,7 @@ jobs:
           popd
 
       - uses: actions/upload-artifact@v2
+        if: steps.cache-flux.outputs.cache-hit != 'true'
         with:
           name: flux-oci-bin-prerelease
           path: ${{ steps.prep.outputs.FLUX_PATH }}/flux
